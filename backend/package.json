@@ -1,0 +1,16 @@
+{
+  "name": "bitfox",
+  "version": "0.0.1",
+  "description": "注重稳定性的DHT网络爬虫",
+  "main": "index.ts",
+  "repository": "https://github.com/older-fox/bitfox",
+  "author": "OlderFox <me@olderfox.com>",
+  "license": "MIT",
+  "scripts": {},
+  "dependencies": {
+    "@types/config": "^3.3.5",
+    "colors": "^1.4.0",
+    "config": "^3.3.12",
+    "mongoose": "^8.9.5"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "log": {
+    "level": "debug",
+    "format": "beautify"
+  },
+  "port": 3000
+}
