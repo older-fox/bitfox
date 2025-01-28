@@ -1,5 +1,5 @@
-import * as config from 'config';
-import * as colors from 'colors';
+import config from 'config';
+import colors from 'colors';
 
 interface LogInfo {
     level: "debug" | "info" | "warn" | "error";
@@ -14,6 +14,24 @@ interface LogMsg {
 
 const log: LogInfo = config.get('log');
 
+let logLevel:number = 0
+switch (log.level) {
+    case 'debug':
+        logLevel = 0
+        break
+    case 'info':
+        logLevel = 1
+        break
+    case 'warn':
+        logLevel = 2
+        break
+    case 'error':
+        logLevel = 3
+        break
+    default:
+        logLevel = 1
+        break
+}
 // 定义 logger 对象
 const logger = {
     debug: (msg: LogMsg) => logMessage("debug", msg),
@@ -26,6 +44,9 @@ const logger = {
 async function logMessage(level: LogInfo["level"], msg: LogMsg) {
     switch (level) {
         case "debug":
+            if (logLevel > 0){
+                break
+            }
             if (log.format === "beautify") {
                 console.debug(
                     `${colors.green(`[DEBUG][${msg.module}]`)} ${colors.white(msg.message)}`
@@ -41,6 +62,9 @@ async function logMessage(level: LogInfo["level"], msg: LogMsg) {
             break;
 
         case "info":
+            if (logLevel > 1){
+                break
+            }
             if (log.format === "beautify") {
                 console.info(
                     `${colors.blue(`[INFO][${msg.module}]`)} ${colors.white(msg.message)}`
@@ -56,6 +80,9 @@ async function logMessage(level: LogInfo["level"], msg: LogMsg) {
             break;
 
         case "warn":
+            if (logLevel > 2){
+                break
+            }
             if (log.format === "beautify") {
                 console.warn(
                     `${colors.yellow(`[WARN][${msg.module}]`)} ${colors.white(msg.message)}`
@@ -71,9 +98,12 @@ async function logMessage(level: LogInfo["level"], msg: LogMsg) {
             break;
 
         case "error":
+            if (logLevel > 3){
+                break
+            }
             if (log.format === "beautify") {
                 console.error(
-                    `${colors.red(`[ERROR][${msg.module}]`)} ${colors.white(msg.message)}`
+                    `${colors.red(`[ERROR][${msg.module}]`)} ${colors.white(msg.message)}\r\n${msg.data}`
                 );
             } else if (log.format === "json") {
                 console.error({
